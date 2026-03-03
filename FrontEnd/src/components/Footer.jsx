@@ -11,7 +11,7 @@ const Footer = () => {
         <Link to="/terms" className="text-sm text-gray-500 hover:text-white transition-colors">Terms</Link>
         <Link to="/api" className="text-sm text-gray-500 hover:text-white transition-colors">API</Link>
       </div>
-      <p className="text-xs text-gray-600">© 2025 Linkly Labs. Crafted for the modern web by Nazam Shiraz.</p>
+      <p className="text-xs text-gray-600">© 2026 Linkly Labs. Crafted for the modern web by Nazam Shiraz.</p>
     </footer>
   )
 }
