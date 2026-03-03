@@ -1,12 +1,19 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Check, Trash2 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 const UserLinks = ({ links, setLinks }) => {
-  console.log("links:", links);
   const [visibleCount, setVisibleCount] = useState(5);
   const [showToast, setShowToast] = useState(false)
+
+  // Use current frontend origin (Netlify in prod, localhost in dev)
+  const frontendBaseUrl = useMemo(() => {
+    if (typeof window === "undefined") return "";
+    return window.location.origin.replace(/\/+$/, "");
+  }, []);
+
+  const buildShortUrl = (shortid) => `${frontendBaseUrl}/${shortid}`;
 
   if (!links || links.length === 0) {
     return <p className="mt-4 text-gray-400">You have no links yet.</p>;
@@ -55,12 +62,12 @@ const UserLinks = ({ links, setLinks }) => {
           >
             <div className="flex flex-col min-w-0">
               <a
-                href={`${import.meta.env.VITE_REACT_APP_API_URL}${link.shortid}`}
+                href={buildShortUrl(link.shortid)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#4a6aff] underline break-all"
               >
-                {`${import.meta.env.VITE_REACT_APP_API_URL}${link.shortid}`}
+                {buildShortUrl(link.shortid)}
               </a>
               <span className="text-gray-300 text-sm break-words">
                 {link.redirectUrl}
@@ -72,7 +79,7 @@ const UserLinks = ({ links, setLinks }) => {
             <div className="flex space-x-2 sm:mt-0">
               <button
                 onClick={() =>
-                  handleCopy(`${import.meta.env.VITE_REACT_APP_API_URL}${link.shortid}`)
+                  handleCopy(buildShortUrl(link.shortid))
                 }
                 className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-[#4a6aff] via-[#5a5de0] to-[#d95a8a] px-3 py-1.5 text-[11px] font-semibold text-white shadow-[0_10px_25px_rgba(37,99,235,0.45)] transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030303] focus-visible:ring-indigo-500"
               >
