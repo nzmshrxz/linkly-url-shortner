@@ -32,7 +32,7 @@ export default function Home() {
           Authorization: `Bearer ${token}`,
         },
       });
-      setLinks(res.data);
+      setLinks(res.data);git pull origin main
     } catch (err) {
       console.log(err.response?.data);
     }
