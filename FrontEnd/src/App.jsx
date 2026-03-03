@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Auth from "./pages/Auth";
 import Footer from "./components/Footer";
 import DashboardPage from "./pages/DashboardPage";
+import RedirectHandler from "./pages/RedirectHandler";
 import {Toaster} from 'react-hot-toast'
 
 function App() {
@@ -29,6 +30,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/dashboard" element={<DashboardPage/>}/>
+              {/* Short URL handler – captures /:shortid on Netlify and forwards to backend */}
+              <Route path="/:shortid" element={<RedirectHandler />} />
             </Routes>
           </main>
           <Footer />

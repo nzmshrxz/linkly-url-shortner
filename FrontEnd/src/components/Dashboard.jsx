@@ -12,15 +12,24 @@ import {
 } from "lucide-react";
 
 import { motion, AnimatePresence } from "motion/react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
+const API_BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
 export default function Dashboard({ links = [], onDelete }) {
   const navigate = useNavigate();
   const [copiedId, setCopiedId] = useState(null);
   const [selectedLink, setSelectedLink] = useState(null);
+
+  // Frontend base URL (Netlify in production, localhost in dev)
+  const frontendBaseUrl = useMemo(() => {
+    if (typeof window === "undefined") return "";
+    return window.location.origin.replace(/\/+$/, "");
+  }, []);
+
+  const buildShortUrl = (shortid) =>
+    `${frontendBaseUrl}/${shortid}`;
 
   const handleCopy = (text, shortid) => {
     navigator.clipboard.writeText(text);
@@ -171,11 +180,11 @@ export default function Dashboard({ links = [], onDelete }) {
                           <td className="px-6 py-5">
                             <div className="flex items-center gap-3">
                               <span className="font-mono text-sm font-bold text-[#4a6aff]">
-                                {BASE_URL}/{link.shortid}
+                                {buildShortUrl(link.shortid)}
                               </span>
                               <button
                                 onClick={() =>
-                                  handleCopy(`${BASE_URL}/${link.shortid}`, link.shortid)
+                                  handleCopy(buildShortUrl(link.shortid), link.shortid)
                                 }
                                 className="p-1.5 rounded-lg bg-white/5 hover:bg-[#4a6aff]/20 text-gray-400 hover:text-[#4a6aff] transition-all"
                               >
@@ -220,7 +229,7 @@ export default function Dashboard({ links = [], onDelete }) {
                           <td className="px-6 py-5 text-right">
                             <div className="flex justify-end gap-2">
                               <a
-                                href={link.redirectUrl}
+                                href={buildShortUrl(link.shortid)}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="p-2 rounded-lg text-gray-400 hover:text-[#d95a8a] hover:bg-[#d95a8a]/10 transition-all"
@@ -284,7 +293,7 @@ export default function Dashboard({ links = [], onDelete }) {
                     Short URL
                   </p>
                   <p className="text-sm font-mono text-[#4a6aff] break-all">
-                    {BASE_URL}/{selectedLink.shortid}
+                    {buildShortUrl(selectedLink.shortid)}
                   </p>
                 </div>
                 <div>

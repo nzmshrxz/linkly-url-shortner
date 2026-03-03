@@ -19,6 +19,9 @@ async function handleGenerateUrl(req, res) {
     const now = Date.now();
     let expiresAt = null;
 
+    // Normalize frontend base URL to avoid double slashes
+    const frontendBase = (process.env.FRONTEND_URL || '').replace(/\/+$/, '');
+
     if (req.user) {
       // logged user → 7 days
       expiresAt = new Date(now + 7 * 24 * 60 * 60 * 1000);
@@ -40,7 +43,7 @@ async function handleGenerateUrl(req, res) {
 
       return res.status(201).json({
         message: 'Short URL created successfully',
-        shortUrl: `${process.env.FRONTEND_URL}/${shortid}`,
+        shortUrl: `${frontendBase}/${shortid}`,
         shortId: shortid
       });
     } else {
@@ -65,7 +68,7 @@ async function handleGenerateUrl(req, res) {
 
       return res.status(201).json({
         message: 'Short URL created successfully',
-        shortUrl: `${process.env.FRONTEND_URL}/${shortid}`,
+        shortUrl: `${frontendBase}/${shortid}`,
         shortId: shortid
       });
     }
