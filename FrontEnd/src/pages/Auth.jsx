@@ -65,7 +65,7 @@ const Auth = () => {
         ? { email: trimmed.email, password: trimmed.password }
         : { ...trimmed };
 
-      const res = await axios.post(`http://localhost:8001${url}`, data);
+      const res = await axios.post(`${import.meta.env.VITE_REACT_APP_API_URL}${url}`, data);
 
       if (res.data.token) {
         login(res.data.token, res.data.user.username);

@@ -23,13 +23,11 @@ export default function Home() {
 
 
 
-
-
   // Fetch user links if logged in
   const fetchLinks = async () => {
     if (!token) return; // guest user
     try {
-      const res = await axios.get("http://localhost:8001/api/shorten/my-links", {
+      const res = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/api/shorten/my-links`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -41,12 +39,12 @@ export default function Home() {
   };
 
   useEffect(() => {
-  if (token) {
-    fetchLinks();
-  } else {
-    setLinks([]); // important: clear on logout
-  }
-}, [token]);
+    if (token) {
+      fetchLinks();
+    } else {
+      setLinks([]); // important: clear on logout
+    }
+  }, [token]);
 
 
 
@@ -70,7 +68,7 @@ export default function Home() {
 
     try {
       const res = await axios.post(
-        "http://localhost:8001/api/shorten",
+        `${import.meta.env.VITE_REACT_APP_API_URL}/api/shorten`,
         { url },
         token ? { headers: { Authorization: `Bearer ${token}` } } : {}
       );
@@ -88,16 +86,16 @@ export default function Home() {
   };
 
   // Copy to clipboard
-  const handleCopy = async() => {
+  const handleCopy = async () => {
     if (!shortUrl) return;
-    try { 
-    await navigator.clipboard.writeText(shortUrl);
-    setShowToast(true);
+    try {
+      await navigator.clipboard.writeText(shortUrl);
+      setShowToast(true);
 
-    setTimeout(() => setShowToast(false), 2000);
-  } catch (err) {
-    setError("Failed to copy");
-  }
+      setTimeout(() => setShowToast(false), 2000);
+    } catch (err) {
+      setError("Failed to copy");
+    }
   };
 
   return (
@@ -197,9 +195,9 @@ export default function Home() {
             <Check className="h-3 w-3" />
             <span>Copy</span>
           </button>
-          
+
         </div>
-        
+
       )}
 
       {/* Guest links info */}
@@ -239,18 +237,18 @@ export default function Home() {
         </>
       )}
       <AnimatePresence>
-            {showToast && (
-        <motion.div
-          initial={{opacity:0 , y:20}}
-          animate={{opacity:1, y:0}}
-          exit={{opacity:0 , y:20}}
-      
-         className="fixed bottom-6 right-6 z-50">
-          <div className="bg-green-500/10 border flex gap-2 items-center border-green-500/30 text-green-300 px-4 py-2 rounded-full text-xs backdrop-blur shadow-lg">
-            <Check size={14}/> Copied to clipboard
-          </div>
+        {showToast && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+
+            className="fixed bottom-6 right-6 z-50">
+            <div className="bg-green-500/10 border flex gap-2 items-center border-green-500/30 text-green-300 px-4 py-2 rounded-full text-xs backdrop-blur shadow-lg">
+              <Check size={14} /> Copied to clipboard
+            </div>
           </motion.div>
-      )}
+        )}
       </AnimatePresence>
     </main>
   );

@@ -19,7 +19,7 @@ export default function DashboardPage() {
     const fetchLinks = async () => {
       try {
         const res = await axios.get(
-          'http://localhost:8001/api/shorten/my-links',
+          `${import.meta.env.VITE_REACT_APP_API_URL}/api/shorten/my-links`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -51,7 +51,7 @@ export default function DashboardPage() {
 
   const handleDelete = async (shortid) => {
     try {
-      await axios.delete(`http://localhost:8001/api/shorten/${shortid}`, {
+      await axios.delete(`${import.meta.env.VITE_REACT_APP_API_URL}/api/shorten/${shortid}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       setLinks((prev) => prev.filter((l) => l.shortid !== shortid))
