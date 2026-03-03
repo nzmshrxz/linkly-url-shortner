@@ -28,7 +28,7 @@ const Navbar = () => {
         <nav className="flex items-center space-x-4">
           {isLoggedIn ? (
             <>
-              <div className="flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/5 px-3 py-1">
+              <div className="hidden sm:flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/5 px-3 py-1">
                 <span className="relative flex h-2.5 w-2.5">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/70"></span>
                   <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
