@@ -54,14 +54,14 @@ git clone https://github.com/yourusername/linkly.git
 
 # Setup Backend
 ```
-cd server
+cd BackEnd
 npm install
 npm run dev
 ```
 
 # Setup Frontend (in a new terminal)
 ```
-cd client
+cd FrontEnd
 npm install
 npm run dev
 ```
