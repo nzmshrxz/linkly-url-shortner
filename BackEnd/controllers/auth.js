@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
-
+const JWT_SECRET = process.env.JWT_SECRET
 async function registerUser(req,res){
   try {
     const {username, email, password} = req.body
@@ -15,7 +15,7 @@ async function registerUser(req,res){
     await user.save()
 
     //generating jwt
-    const token = jwt.sign({id: user._id}, "SECRET_KEY", {expiresIn: "1h"})
+    const token = jwt.sign({id: user._id}, JWT_SECRET, {expiresIn: "1h"})
 
     //send response
     res.status(200).json({
@@ -39,7 +39,7 @@ async function loginUser(req,res){
 
   if(!isMatch) return res.status(400).json({message: 'Invalid Credentials'})
     
-  const token = jwt.sign({id: user._id}, "SECRET_KEY", {expiresIn: "1h"})
+  const token = jwt.sign({id: user._id}, JWT_SECRET, {expiresIn: "1h"})
   res.json({token, user:{id: user._id, username: user.username, email:user.email}})
 
 

@@ -1,4 +1,5 @@
 const express = require('express')
+require('dotenv').config()
 const cors = require("cors")
 const { handleConnection } = require('./connection/connect')
 const urlRouter = require('./routes/url')
@@ -7,10 +8,10 @@ const URL = require('./models/url')
 const { handleRedirect } = require('./controllers/url')
 const app = express()
 app.use(cors())
-const PORT = 8001
+const PORT = process.env.PORT || 8001
 
 
-handleConnection('mongodb://localhost:27017/shorturl')
+handleConnection()
 app.use(express.json())
 app.use('/api/shorten', urlRouter)
 app.use('/api/auth', authRouter)   // 👈 all auth routes will start with /api/auth
