@@ -1,6 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
+import Api from "./pages/Api";
 import Navbar from "./components/Navbar";
 import Auth from "./pages/Auth";
 import Footer from "./components/Footer";
@@ -32,6 +35,9 @@ function App() {
               <Route path="/dashboard" element={<DashboardPage/>}/>
               {/* Short URL handler – captures /:shortid on Netlify and forwards to backend */}
               <Route path="/:shortid" element={<RedirectHandler />} />
+              <Route path="/privacy" element={<Privacy/>}/>
+              <Route path="/terms" element={<Terms/>}/>
+              <Route path="/api" element={<Api/>}/>
             </Routes>
           </main>
           <Footer />

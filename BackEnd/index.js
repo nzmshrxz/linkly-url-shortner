@@ -7,7 +7,10 @@ const authRouter = require('./routes/auth')
 const URL = require('./models/url')
 const { handleRedirect } = require('./controllers/url')
 const app = express()
-app.use(cors())
+app.use(cors({
+  origin: [process.env.FRONTEND_URI, "http://localhost:5173"],
+  credentials:true
+}))
 const PORT = process.env.PORT || 8001
 
 
