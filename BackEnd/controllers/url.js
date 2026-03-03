@@ -40,7 +40,7 @@ async function handleGenerateUrl(req, res) {
 
       return res.status(201).json({
         message: 'Short URL created successfully',
-        shortUrl: `${req.protocol}://${req.get('host')}/${shortid}`,
+        shortUrl: `${process.env.FRONTEND_URL}/${shortid}`,
         shortId: shortid
       });
     } else {
@@ -65,7 +65,7 @@ async function handleGenerateUrl(req, res) {
 
       return res.status(201).json({
         message: 'Short URL created successfully',
-        shortUrl: `${req.protocol}://${req.get('host')}/${shortid}`,
+        shortUrl: `${process.env.FRONTEND_URL}/${shortid}`,
         shortId: shortid
       });
     }
