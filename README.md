@@ -40,25 +40,31 @@ Redis instance (Local or Upstash)
 Create a .env file in the /server directory:
 
 Code snippet
+```
 PORT=5000
 MONGO_URI=your_mongodb_uri
 REDIS_URL=your_redis_url
 JWT_SECRET=your_super_secret_key
 FRONTEND_URL=http://localhost:5173
+```
 3. Installation & Execution
 Bash
 # Clone the repository
 git clone https://github.com/yourusername/linkly.git
 
 # Setup Backend
+```
 cd server
 npm install
 npm run dev
+```
 
 # Setup Frontend (in a new terminal)
+```
 cd client
 npm install
 npm run dev
+```
 The app will be live at http://localhost:5173.
 
 📈 Future Roadmap
