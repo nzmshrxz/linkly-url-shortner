@@ -78,7 +78,7 @@ const linksWithCountdown = links.map(link => ({
   timeLeft: getTimeLeft(link.expiresAt)
 }));
 
-console.log(links[0])
+
   if (loading) {
     return (
       <div className="flex min-h-[40vh] items-center justify-center">
